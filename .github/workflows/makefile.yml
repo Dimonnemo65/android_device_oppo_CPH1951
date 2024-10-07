@@ -14,7 +14,7 @@ on:
       DEVICE_TREE_URL:
         description: 'DEVICE_TREE_URL'
         required: true
-        default: 'https://github.com/Dimonnemo64/android_device_oppo_CPH1951'
+        default: 'https://github.com/Dimonnemo65/android_device_oppo_CPH1951'
       DEVICE_TREE_BRANCH:
         description: 'DEVICE_TREE_BRANCH'
         required: true
