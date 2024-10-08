@@ -81,12 +81,13 @@ jobs:
         sudo dpkg --add-architecture i386
         sudo apt update
         sudo apt -y upgrade
-        sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev python3
-        
+        sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev python3       
+       
     - name: Install OpenJDK
-      run: |
-        git clone https://github.com/cd-Spidey/Random.git ./opendjk
-        sudo bash opendjk/setup/packages/open_jdk.sh
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '8'    
         
     - name: Install Git-Repo
       run: |
@@ -128,6 +129,14 @@ jobs:
         bash ${GITHUB_WORKSPACE}/scripts/convert.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
         repo sync -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workdir }}
+      continue-on-error: true
+      
+    - name: Switch to Python2
+      run: |
+        sudo apt -y install python
+        sudo rm -rf /usr/bin/python
+        sudo ln -s /usr/bin/python2 /usr/bin/python
+        #sudo ln -s /usr/bin/python3 /usr/bin/python3
       continue-on-error: true
 
     - name: Building Recovery
