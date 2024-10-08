@@ -13,10 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-# Release name
-PRODUCT_RELEASE_NAME := CPH1951
-
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
@@ -27,15 +23,18 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/pb/config/common.mk)
 
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root) \
-    $(LOCAL_PATH)/prebuilt/dtb:dtb.img
-
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := CPH1951
 PRODUCT_NAME := omni_CPH1951
 PRODUCT_BRAND := Oppo
 PRODUCT_MODEL := Reno 2Z
 PRODUCT_MANUFACTURER := Oppo
+PRODUCT_RELEASE_NAME := Reno 2Z
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=CPH1951 \
+    BUILD_PRODUCT=CPH1951 \
+    TARGET_DEVICE=CPH1951
 
 # HACK: Set vendor patch level and enable Treble
 PRODUCT_PROPERTY_OVERRIDES += \
