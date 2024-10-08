@@ -23,6 +23,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/pb/config/common.mk)
 
+# Another common config inclusion
+$(call inherit-product, $(SRC_TARGET_DIR)/product/embedded.mk)
+
 #Fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
