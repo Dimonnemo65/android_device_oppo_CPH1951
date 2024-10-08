@@ -23,6 +23,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/pb/config/common.mk)
 
+#Fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+    android.hardware.fastboot@1.0-impl-mock.recovery
+
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := CPH1951
 PRODUCT_NAME := omni_CPH1951
