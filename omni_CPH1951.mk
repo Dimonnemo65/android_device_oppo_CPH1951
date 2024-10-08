@@ -17,10 +17,18 @@
 # Release name
 PRODUCT_RELEASE_NAME := CPH1951
 
-$(call inherit-product, build/target/product/embedded.mk)
+# Dynamic
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/pb/config/common.mk)
+
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root) \
+    $(LOCAL_PATH)/prebuilt/dtb:dtb.img
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := CPH1951
@@ -28,3 +36,8 @@ PRODUCT_NAME := omni_CPH1951
 PRODUCT_BRAND := Oppo
 PRODUCT_MODEL := Reno 2Z
 PRODUCT_MANUFACTURER := Oppo
+
+# HACK: Set vendor patch level and enable Treble
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.build.security_patch=2099-12-31 \
+    ro.treble.enabled=true
