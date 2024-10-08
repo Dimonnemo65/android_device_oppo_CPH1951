@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 # Dynamic
+
+DEVICE_PATH := device/oppo/CPH1951
+
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Inherit from those products. Most specific first.
